@@ -17,7 +17,7 @@ const Navbar = () => {
 					height={23}
 					alt="Stackflow"
 				/>
-				<p className="h2-bold max:hidden font-spaceGrotesk  text-dark-100 dark:text-light-900 max-sm:hidden">
+				<p className="h2-bold font-spaceGrotesk  text-dark-100 dark:text-light-900 max-sm:hidden">
 					Stack<span className="text-primary-500">Flow</span>
 				</p>
 			</Link>
