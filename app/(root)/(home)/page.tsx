@@ -1,3 +1,4 @@
+import LocalSearch from '@/components/shared/search/LocalSearch'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
@@ -14,6 +15,8 @@ const Home = () => {
 					</Button>
 				</Link>
 			</div>
+
+			<LocalSearch />
 
 			<div></div>
 		</>
