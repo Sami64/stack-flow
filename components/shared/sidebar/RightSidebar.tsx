@@ -3,15 +3,15 @@ import Link from 'next/link'
 import RenderTag from '../RenderTag'
 
 const popularTags = [
-	{ _id: 1, name: 'javascript', totalQuestions: 5 },
-	{ _id: 2, name: 'next', totalQuestions: 55 },
-	{ _id: 3, name: 'vue', totalQuestions: 25 },
-	{ _id: 4, name: 'react', totalQuestions: 15 },
+	{ _id: '1', name: 'javascript', totalQuestions: 5 },
+	{ _id: '2', name: 'next', totalQuestions: 55 },
+	{ _id: '3', name: 'vue', totalQuestions: 25 },
+	{ _id: '4', name: 'react', totalQuestions: 15 },
 ]
 
 const RightSidebar = () => {
 	return (
-		<section className="background-light900_dark200 light-border custom-scrollbar right-0 top-0 flex h-screen flex-col overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden lg:w-[350px]">
+		<section className="background-light900_dark200 light-border custom-scrollbar sticky right-0 top-0 flex h-screen flex-col overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden lg:w-[350px]">
 			{/** Top Questions */}
 			<div className="flex flex-col justify-between gap-3">
 				<h3 className="h3-bold text-dark200_light900">Top Questions</h3>
@@ -42,7 +42,7 @@ const RightSidebar = () => {
 							_id={tag._id}
 							name={tag.name}
 							totalQuestions={tag.totalQuestions}
-                            showCount
+							showCount
 						/>
 					))}
 				</div>

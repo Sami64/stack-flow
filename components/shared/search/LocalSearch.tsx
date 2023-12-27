@@ -3,24 +3,52 @@
 import { Input } from '@/components/ui/input'
 import Image from 'next/image'
 
-const LocalSearch = () => {
+interface CustomLocalSearchProps {
+	route: string
+	iconPosition: 'left' | 'right'
+	placeholder: string
+	otherClassNames: string
+	imgSrc: string
+}
+
+
+
+
+const LocalSearch = ({
+	route,
+	iconPosition,
+	placeholder,
+	otherClassNames,
+	imgSrc,
+}: CustomLocalSearchProps) => {
 	return (
-		<div className="relative w-full py-10">
+		<div className="relative w-full pb-10">
 			<div className="background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4">
-				<Image
-					src="/assets/icons/search.svg"
-					width={24}
-					height={24}
-					alt="search"
-					className="cursor-pointer"
-				/>
+				{iconPosition === 'left' && (
+					<Image
+						src={imgSrc}
+						width={24}
+						height={24}
+						alt="search"
+						className="cursor-pointer"
+					/>
+				)}
 				<Input
 					type="text"
-					placeholder="Search questions..."
+					placeholder={placeholder}
 					value=""
 					onChange={() => {}}
 					className="paragraph-regular no-focus placeholder text-dark400_light700 border-none bg-transparent shadow-none outline-none"
 				/>
+				{iconPosition === 'right' && (
+					<Image
+						src={imgSrc}
+						width={24}
+						height={24}
+						alt="search"
+						className="cursor-pointer"
+					/>
+				)}
 			</div>
 		</div>
 	)
