@@ -62,12 +62,12 @@ export async function POST(req: Request) {
 		const mongoUser = await createUser({
 			clerkId: id,
 			email: email_addresses[0].email_address,
-			username: username || '',
-			name: `${first_name} ${last_name || ''}`,
+			username: username ?? '',
+			name: `${first_name} ${last_name ?? ''}`,
 			picture: image_url,
 		})
 
-        console.log('mongo user', mongoUser);
+		console.log('mongo user', mongoUser)
 
 		return NextResponse.json({ message: 'OK', user: mongoUser })
 	} else if (eventType === 'user.updated') {
@@ -76,8 +76,8 @@ export async function POST(req: Request) {
 			clerkId: evt.data.id,
 			updateData: {
 				email: evt.data.email_addresses[0].email_address,
-				username: evt.data.username || '',
-				name: `${evt.data.first_name} ${evt.data.last_name || ''}`,
+				username: evt.data.username ?? '',
+				name: `${evt.data.first_name} ${evt.data.last_name ?? ''}`,
 				picture: evt.data.image_url,
 			},
 			path: `/profile/${evt.data.id}`,
