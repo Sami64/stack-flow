@@ -5,58 +5,12 @@ import LocalSearch from '@/components/shared/search/LocalSearch'
 import SearchFilter from '@/components/shared/search/SearchFilter'
 import { Button } from '@/components/ui/button'
 import { HomePageFilters } from '@/constants/filters'
+import { getQuestions } from '@/lib/actions/question.action'
 import Link from 'next/link'
 
-const questions = [
-	{
-		_id: 1,
-		title: 'Cascading Deletes in SQLAlchemy?',
-		tags: [
-			{
-				_id: '1',
-				name: 'python',
-			},
-			{
-				_id: '2',
-				name: 'sql',
-			},
-		],
-		author: {
-			_id: 'author1',
-			name: 'John Doe',
-			picture: '/asets/icons/avatar.svg',
-		},
-		upvotes: 10,
-		views: 100,
-		answers: [], // Assuming no answers yet, use an empty array
-		createdAt: new Date('2021-08-01T12:00:00.000Z'),
-	},
-	{
-		_id: 2,
-		title: 'Game Dev 101',
-		tags: [
-			{
-				_id: '3',
-				name: 'unity',
-			},
-			{
-				_id: '4',
-				name: 'c#',
-			},
-		],
-		author: {
-			_id: 'author2',
-			name: 'Jane Smith',
-			picture: '/asets/icons/avatar.svg',
-		},
-		upvotes: 10,
-		views: 100,
-		answers: [], // Assuming no answers yet, use an empty array
-		createdAt: new Date('2021-08-01T12:00:00.000Z'),
-	},
-]
+const Home = async () => {
+	const result = await getQuestions({})
 
-const Home = () => {
 	return (
 		<>
 			<div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -85,8 +39,8 @@ const Home = () => {
 			</div>
 			<HomeFilter />
 			<div className="mt-10 flex w-full flex-col gap-6">
-				{questions.length > 0 ? (
-					questions.map((question) => (
+				{result?.questions?.length! > 0 ? (
+					result?.questions.map((question) => (
 						<QuestionCard
 							key={question._id}
 							_id={question._id}
