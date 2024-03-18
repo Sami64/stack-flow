@@ -31,7 +31,10 @@ export async function createUser(userData: CreateUserParams) {
 		const newUser = await User.create(userData)
 
 		return newUser
-	} catch (error) {}
+	} catch (error) {
+		console.log('User Action Error[CREATE]: ', error)
+		throw error
+	}
 }
 
 export async function updateUser(params: UpdateUserParams) {
@@ -43,7 +46,10 @@ export async function updateUser(params: UpdateUserParams) {
 		await User.findOneAndUpdate({ clerkId }, updateData, { new: true })
 
 		revalidatePath(path)
-	} catch (error) {}
+	} catch (error) {
+		console.log('User Action Error[UPDATE]: ', error)
+		throw error
+	}
 }
 
 export async function deleteUser(params: DeleteUserParams) {
@@ -64,5 +70,8 @@ export async function deleteUser(params: DeleteUserParams) {
 
 		// Delete user questions
 		await Question.deleteMany({ author: user._id })
-	} catch (error) {}
+	} catch (error) {
+		console.log('User Action Error[DELETE]: ', error)
+		throw error
+	}
 }
