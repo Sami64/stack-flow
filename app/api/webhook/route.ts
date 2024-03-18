@@ -76,7 +76,7 @@ export async function POST(req: Request) {
 			clerkId: evt.data.id,
 			updateData: {
 				email: evt.data.email_addresses[0].email_address,
-				username: evt.data.username!,
+				username: evt.data.username || '',
 				name: `${evt.data.first_name} ${evt.data.last_name || ''}`,
 				picture: evt.data.image_url,
 			},
