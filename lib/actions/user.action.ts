@@ -16,11 +16,13 @@ export async function getUserById(params: any) {
 
 		const { userId } = params
 
+		console.log('User Id', userId);
+
 		const user = await User.findOne({ clerkId: userId })
 
 		return user
 	} catch (error) {
-		console.log(error)
+		console.log('[GET_USER_BY_ID ERROR]', error)
 	}
 }
 
