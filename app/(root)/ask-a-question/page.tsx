@@ -6,13 +6,9 @@ import { redirect } from 'next/navigation'
 const AskAQuestion = async () => {
 	const { userId } = auth()
 
-	if (!userId) redirect('/sign-in')
+	if (!userId || userId === null || userId === undefined) redirect('/sign-in')
 
-	const mongoUser = await getUserById(userId)
-
-	console.log('MONGO_USER', mongoUser)
-
-	if (!mongoUser) redirect('/sign-in')
+	const mongoUser = await getUserById({ userId })
 
 	return (
 		<div>

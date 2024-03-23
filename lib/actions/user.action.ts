@@ -2,21 +2,23 @@
 
 import Question from '@/database/question.model'
 import User from '@/database/user.model'
+import console from 'console'
 import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '../mongoose'
 import {
 	CreateUserParams,
 	DeleteUserParams,
+	GetUserByIdParams,
 	UpdateUserParams,
 } from './shared.types'
 
-export async function getUserById(params: any) {
+export async function getUserById(params: GetUserByIdParams) {
 	try {
 		connectToDatabase()
 
 		const { userId } = params
 
-		console.log('User Id', userId);
+		console.log('User Id', userId)
 
 		const user = await User.findOne({ clerkId: userId })
 
