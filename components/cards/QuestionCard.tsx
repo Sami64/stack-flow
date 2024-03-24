@@ -17,7 +17,7 @@ interface QuestionProps {
 	}
 	upvotes: number
 	views: number
-	answers: Array<object>
+	answers: Array<{}>
 	createdAt: Date
 }
 
