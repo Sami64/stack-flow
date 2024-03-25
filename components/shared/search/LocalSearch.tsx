@@ -11,9 +11,6 @@ interface CustomLocalSearchProps {
 	imgSrc: string
 }
 
-
-
-
 const LocalSearch = ({
 	route,
 	iconPosition,
@@ -22,34 +19,33 @@ const LocalSearch = ({
 	imgSrc,
 }: CustomLocalSearchProps) => {
 	return (
-		<div className="relative w-full pb-10">
-			<div className="background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4">
-				{iconPosition === 'left' && (
-					<Image
-						src={imgSrc}
-						width={24}
-						height={24}
-						alt="search"
-						className="cursor-pointer"
-					/>
-				)}
-				<Input
-					type="text"
-					placeholder={placeholder}
-					value=""
-					onChange={() => {}}
-					className="paragraph-regular no-focus placeholder text-dark400_light700 border-none bg-transparent shadow-none outline-none"
+		<div
+			className={`background-light800_darkgradient relative flex min-h-[56px] grow items-center gap-1 rounded-xl px-4 ${otherClassNames}`}>
+			{iconPosition === 'left' && (
+				<Image
+					src={imgSrc}
+					width={24}
+					height={24}
+					alt="search"
+					className="cursor-pointer"
 				/>
-				{iconPosition === 'right' && (
-					<Image
-						src={imgSrc}
-						width={24}
-						height={24}
-						alt="search"
-						className="cursor-pointer"
-					/>
-				)}
-			</div>
+			)}
+			<Input
+				type="text"
+				placeholder={placeholder}
+				value=""
+				onChange={() => {}}
+				className="paragraph-regular no-focus placeholder text-dark400_light700 border-none bg-transparent shadow-none outline-none"
+			/>
+			{iconPosition === 'right' && (
+				<Image
+					src={imgSrc}
+					width={24}
+					height={24}
+					alt="search"
+					className="cursor-pointer"
+				/>
+			)}
 		</div>
 	)
 }
