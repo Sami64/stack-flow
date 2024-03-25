@@ -13,7 +13,7 @@ import {
 
 export const createQuestion = async (params: CreateQuestionParams) => {
 	try {
-		connectToDatabase()
+		await connectToDatabase()
 
 		const { title, content, tags, author, path } = params
 
