@@ -8,7 +8,7 @@ import {
 } from '@/lib/actions/question.action'
 import { formatNumber } from '@/lib/utils'
 import Image from 'next/image'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 interface Props {
 	type: string
@@ -32,7 +32,7 @@ const Votes = ({
 	hasSaved,
 }: Props) => {
 	const pathname = usePathname()
-	const router = useRouter()
+	// const router = useRouter()
 
 	const handleVote = async (action: string) => {
 		if (!userId) return
@@ -123,18 +123,20 @@ const Votes = ({
 					</div>
 				</div>
 			</div>
-			{hasSaved && <Image
-				alt="save"
-				src={
-					hasSaved
-						? '/assets/icons/star-filled.svg'
-						: '/assets/icons/star-red.svg'
-				}
-				width={18}
-				height={18}
-				className="cursor-pointer"
-				onClick={() => handleSave()}
-			/>}
+			{hasSaved && (
+				<Image
+					alt="save"
+					src={
+						hasSaved
+							? '/assets/icons/star-filled.svg'
+							: '/assets/icons/star-red.svg'
+					}
+					width={18}
+					height={18}
+					className="cursor-pointer"
+					onClick={() => handleSave()}
+				/>
+			)}
 		</div>
 	)
 }
