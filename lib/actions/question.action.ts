@@ -1,14 +1,17 @@
 'use server'
 
+import Answer from '@/database/answer.model'
 import Question from '@/database/question.model'
 import Tag from '@/database/tag.model'
 import User from '@/database/user.model'
 import { revalidatePath } from 'next/cache'
 import { connectToDatabase } from '../mongoose'
 import {
+	AnswerVoteParams,
 	CreateQuestionParams,
 	GetQuestionByIdParams,
 	GetQuestionsParams,
+	QuestionVoteParams,
 } from './shared.types'
 
 export const createQuestion = async (params: CreateQuestionParams) => {
@@ -41,7 +44,7 @@ export const createQuestion = async (params: CreateQuestionParams) => {
 		})
 
 		revalidatePath(path)
-	} catch (error) {}
+	} catch (error) { }
 }
 
 export async function getQuestions(params: GetQuestionsParams) {
@@ -84,5 +87,145 @@ export async function getQuestion(params: GetQuestionByIdParams) {
 	} catch (err) {
 		console.log(err)
 		throw new Error('Error getting question')
+	}
+}
+
+export async function upvoteQuestion(params: QuestionVoteParams) {
+	try {
+		connectToDatabase()
+
+		const { userId, hasupVoted, hasdownVoted, path, questionId } = params
+
+		let updateQuery = {}
+
+		if (hasupVoted) {
+			updateQuery = {
+				$pull: { upvotes: userId }
+			}
+
+		} else if (hasdownVoted) {
+			updateQuery = {
+				$push: { upvotes: userId },
+				$pull: { downvotes: userId }
+			}
+
+		} else {
+			updateQuery = {
+				$addToSet: { upvotes: userId }
+			}
+		}
+
+		const question = await Question.findByIdAndUpdate(questionId, updateQuery, { new: true })
+
+		if (!question) throw new Error('Question not found')
+
+		revalidatePath(path)
+	} catch (error) {
+		console.log(error)
+		throw new Error('Error getting question')
+	}
+}
+
+export async function upvoteAnswer(params: AnswerVoteParams) {
+	try {
+		connectToDatabase()
+
+		const { userId, hasupVoted, hasdownVoted, path, answerId } = params
+
+		let updateQuery = {}
+
+		if (hasupVoted) {
+			updateQuery = {
+				$pull: { upvotes: userId }
+			}
+
+		} else if (hasdownVoted) {
+			updateQuery = {
+				$push: { upvotes: userId },
+				$pull: { downvotes: userId }
+			}
+
+		} else {
+			updateQuery = {
+				$addToSet: { upvotes: userId }
+			}
+		}
+
+		const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, { new: true })
+
+		if (!answer) throw new Error('Answer not found')
+
+		revalidatePath(path)
+	} catch (error) {
+		console.log(error)
+		throw new Error('Error getting answer')
+	}
+}
+
+export async function downvoteQuestion(params: QuestionVoteParams) {
+	try {
+		connectToDatabase()
+
+		const { userId, hasupVoted, hasdownVoted, path, questionId } = params
+
+		let updateQuery = {}
+
+		if (hasdownVoted) {
+			updateQuery = {
+				$pull: { downvotes: userId }
+			}
+		} else if (hasupVoted) {
+			updateQuery = {
+				$push: { downvotes: userId },
+				$pull: { upvotes: userId }
+			}
+		} else {
+			updateQuery = {
+				$addToSet: { downvotes: userId }
+			}
+		}
+
+		const question = await Question.findByIdAndUpdate(questionId, updateQuery, { new: true })
+
+		if (!question) throw new Error('Question not found')
+
+		revalidatePath(path)
+	} catch (error) {
+		console.log(error)
+		throw new Error('Error getting question')
+	}
+}
+
+export async function downvoteAnswer(params: AnswerVoteParams) {
+	try {
+		connectToDatabase()
+
+		const { userId, hasupVoted, hasdownVoted, path, answerId } = params
+
+		let updateQuery = {}
+
+		if (hasdownVoted) {
+			updateQuery = {
+				$pull: { downvotes: userId }
+			}
+		} else if (hasupVoted) {
+			updateQuery = {
+				$push: { downvotes: userId },
+				$pull: { upvotes: userId }
+			}
+		} else {
+			updateQuery = {
+				$addToSet: { downvotes: userId }
+			}
+		}
+
+		const answer = await Answer.findByIdAndUpdate(answerId, updateQuery, { new: true })
+
+		if (!answer) throw new Error('Answer not found')
+
+		revalidatePath(path)
+	} catch (error) {
+		console.log(error)
+		throw new Error('Error getting answer')
 	}
 }
